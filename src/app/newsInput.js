@@ -8,13 +8,13 @@ const NewsInput = () => {
     <div className="flex flex-col justify-center min-h-screen items-center gap-4">
       {/* <Image src="https://leaguex.com/_next/image?url=%2Fimg%2Flogos%2Flx_logo.png&w=3840&q=75" width={600} height={200}/> */}
       <input
-      className="border p-2 w-full rounded-md"
+      className="border p-2 w-full rounded-md focus-visible:outline-0"
         type="text"
         placeholder="Enter Keyword"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Link href={`/news/${encodeURIComponent(keyword)}`} className="border px-4 py-2 rounded-md">Get News</Link>
+      <Link href={`/news/${encodeURIComponent(keyword)}`} className="border px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Get News</Link>
     </div>
   );
 };
