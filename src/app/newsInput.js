@@ -1,29 +1,20 @@
 "use client";
-import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const NewsInput = () => {
   const [keyword, setKeyword] = useState("");
-
-  const getNews = () => {
-    axios
-      .get(
-        `https://newsapi.org/v2/everything?q=${keyword}&apiKey=4a415886915946b1b2b6cf7763d54e47`
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
   return (
-    <div>
+    <div className="flex flex-col justify-center min-h-screen items-center gap-4">
+      {/* <Image src="https://leaguex.com/_next/image?url=%2Fimg%2Flogos%2Flx_logo.png&w=3840&q=75" width={600} height={200}/> */}
       <input
+      className="border p-2 w-full rounded-md"
         type="text"
         placeholder="Enter Keyword"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Link href={`/news/${encodeURIComponent(keyword)}`}>Get News</Link>
+      <Link href={`/news/${encodeURIComponent(keyword)}`} className="border px-4 py-2 rounded-md">Get News</Link>
     </div>
   );
 };
