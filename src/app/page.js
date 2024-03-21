@@ -1,3 +1,9 @@
+import NewsInput from "./newsInput";
+
 export default function Home() {
-  return <main>Hello LeagueX</main>;
+  return (
+    <main>
+      <NewsInput />
+    </main>
+  );
 }
