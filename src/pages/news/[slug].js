@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import "../../app/globals.css";
 import Link from "next/link";
 import Head from "next/head";
+import loader from "../../../public/assets/loader.gif";
+import Image from "next/image";
 
 const Page = () => {
   const router = useRouter();
@@ -11,6 +13,8 @@ const Page = () => {
   const [openSort, setOpenSort] = useState(false);
   const [openFromDate, setOpenFromDate] = useState(false);
   const [openToDate, setOpenToDate] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const sortOptions = [
     { label: "Most Relevant", option: "relevancy" },
@@ -27,24 +31,29 @@ const Page = () => {
 
   const [selectedFilters, setselectedFilters] = useState([]);
 
-  const getNews = () => {
+  const getNews = async () => {
+    setLoading(true);
     let queryParams = `?q=${encodeURIComponent(router.query.slug)}`;
     selectedFilters.forEach((filter) => {
       queryParams += `&${filter.type}=${encodeURIComponent(filter.value)}`;
     });
 
-    axios
+    await axios
       .get(
         `https://newsapi.org/v2/everything${queryParams}&apiKey=4a415886915946b1b2b6cf7763d54e47`
       )
       .then((res) => {
+        setLoading(false);
         if (res.data.status === "ok") {
           setArticles(
             res.data.articles.filter((art) => art.content !== "[Removed]")
           );
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
   };
 
   const updateFilters = (filterObj) => {
@@ -117,7 +126,9 @@ const Page = () => {
           </h2>
         </div>
 
-        {articles.length > 0 ? (
+        {loading ? (
+          <Image src={loader} alt="Loading..." className="mx-auto" />
+        ) : articles.length > 0 ? (
           <div className="columns-2 flex gap-4 flex-col lg:flex-row">
             <div className="w-full lg:max-w-96 border rounded-lg p-6 h-fit">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
