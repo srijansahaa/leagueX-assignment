@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="xl:container mx-auto py-8 font-mono px-4 xl:px-0">
+      <body className="xl:container mx-auto py-8 font-mono px-4 xl:px-0 dark:bg-slate-900">
         {children}
       </body>
     </html>
